@@ -34,9 +34,6 @@ lazy-object-proxy==1.4.3
 lxml==4.6.2
 MarkupSafe==1.1.1
 matplotlib==3.3.4
-mccabe==0.6.1
-mistune==0.8.4
-
 numpy==1.20.1
 packaging==20.9
 pandas==1.2.2
