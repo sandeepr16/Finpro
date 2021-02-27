@@ -1,0 +1,53 @@
+import matplotlib.pyplot as plt
+import csv
+import pandas as pd
+import numpy as np
+def call_method(i,s):
+    filelist = ["BaseData.csv","Quarterly.csv","pandlNetp.csv","Balance Sheet.csv","Cash-flow.csv","SWOT (1).csv"]
+    plottitle = ["","Quarterly Results","Profit and Loss","Balance Sheet","Cash Flow"]
+    filedf = pd.read_csv(filelist[i])
+    dfr = pd.DataFrame(filedf.loc[filedf['NSE']==s].dropna(axis=1))
+    qx = dfr.columns
+    qx = list(qx[3:])
+    qyy = dfr.values.tolist()
+    qya = qyy[0]
+    qya = qya[3:]
+    qy = []
+    if i == 0 or i == 5:
+        for j in range(len(qya)):
+            qy.append(qya[j])
+        print(qx)
+        print(qy)
+    elif i is not 3:
+        for j in range(len(qya)):
+            qy.append(int(qya[j]))
+        plt.figure(figsize=(18,5))
+        plt.plot(qx,qy)
+        plt.axhline(0, color='black')
+        xlabels = ['','Quarters','Years','Years','Years']
+        ylabels = ['','Net Profit','Net Profit','Total L/A','Net Cash Flow']
+        plt.xlabel(xlabels[i])
+        plt.ylabel(ylabels[i])
+        plt.title(plottitle[i])
+    else:
+        for j in range(len(qya)):
+            qy.append(int(qya[j]))
+        x = np.arange(len(qy))
+        width = 0.3
+        plt.figure(figsize=(18,5))
+        fig, ax = plt.subplots(1,1,figsize=(18,5))
+        rects1 = ax.bar(x - width/2, qy, width, label='Assets')
+        rects2 = ax.bar(x + width/2, qy, width, label='Liabilities')
+        ax.set_ylabel('Amount in Crores')
+        ax.set_title(plottitle[i])
+        ax.set_xticks(x)
+        ax.set_xticklabels(qx)
+        ax.legend()
+        plt.show()
+s = input()
+call_method(0,s)
+call_method(1,s)
+call_method(2,s)
+call_method(3,s)
+call_method(4,s)
+call_method(5,s)

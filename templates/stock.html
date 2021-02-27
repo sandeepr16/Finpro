@@ -1,0 +1,640 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<title>FINPRO</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+        <script src='http://cdn.rawgit.com/pguso/jquery-plugin-circliful/master/js/jquery.circliful.min.js'></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="FinPro - provide the information of stocks.">
+		<meta name="keywords" content="">
+		<!-- Bootstrap -->
+		<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+		<!-- style css -->
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+		<!-- animsition css -->
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/animation.min.css') }}">
+		<!-- Font Awesome CSS -->
+		<link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet">
+		<!-- font css -->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+		<link href="https://unpkg.com/tailwindcss@%5E1.0/dist/tailwind.min.css" rel="stylesheet">
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+    </head>     
+    <body class="animsition">
+    <div class="page-header">
+        <!-- page header -->
+        <div class="top-header">
+            <!-- top heder -->
+            <div class="container">
+                <div class="row">
+                        <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
+                            <p>Welcome to our investment assisting website.</p>
+                        </div>
+                        <div class="col-lg-8 col-md-8 hidden-sm hidden-xs">
+                            <div class="pull-right">
+                                <span class="top-link"><i class="fa fa-phone"></i> +91 91919 19191</span>
+                                <span class="top-link"><i class="fa fa-envelope"></i> finpro@gmail.com</span>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.top header -->
+            <!-- navigation-transparent -->
+            <div class="header">
+                <!-- navigation -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                           <a  href="{{ url_for('ind')}}" ><img border=0 style="border:0; text-decoration:none; outline:none" src="static/images/logo.png" ></a>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                            <div id="navigation" class="navigation">
+                                <ul class="pull-right">
+                                    <li class="active"><a href="{{ url_for('ind')}}" title="Home" class="animsition-link">Home</a></li>
+									<li><a href="{{ url_for('nnn')}}"  class="animsition-link">News</a></li>
+                                    <li><a href="{{ url_for('predict')}}"  class="animsition-link">Predict</a></li>
+									<li><a href="{{ url_for('gainloss')}}"  class="animsition-link">Top Gainers</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- /.navigation -->
+        
+    </div>
+	<div class="container">
+
+  <div class="container con2">
+  <div class="text-center mb-20">
+		<h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">COMPARE STOCKS</h1>
+    </div>
+        <form class="stock d-flex justify-content-center" name = "stockform" autocomplete="off" action="{{ url_for('swot')}}" method="post">
+			<div class="autocomplete col-12 justify-content-center" style="width:500px;">
+				<div class="row">
+					<div class="col-sm-6">
+						<input id="myInput" class="form-control" type="text" name="companyname" placeholder="STOCK NAME"></td>
+					</div>
+					<div class="col-sm">
+						<input id="myInput1" class="form-control" type="text" name="companyname1" placeholder="STOCK NAME"></td>
+					</div>
+				</div>	
+				<div class="row ">
+					<div class="col-12 d-flex justify-content-center mt-1">
+
+						<button class="btn btn-default" type="submit" value="Get News" ><i class="fa fa-search"></i></button>
+					</div>
+					
+				</div>					 								
+				    
+			</div>
+		</form>
+	</div>
+	<div class="content">
+	<div class="row">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-3"><h2 class="title-font font-medium sm:text-4xl text-3xl text-gray-900">{{ compname }}</h2></div>
+		<div class="col-lg-2"></div>
+		<div class="col-lg-3"><h2 class="title-font font-medium sm:text-4xl text-3xl text-gray-900">{{ compname1 }}</h2></div>
+	</div>
+
+	<section class="text-gray-600 body-font">
+  <div  class="container px-5 py-24 mx-auto">
+    
+    <div class="flex flex-wrap -m-4">
+	{% for q in headings %}
+                {% set h = headings[loop.index-1] %}
+                
+      <div class="p-4 lg:w-1/4 sm:w-1/2 w-full">
+        <nav class="flex flex-col sm:items-start sm:text-left text-center items-center -mb-1 space-y-2.5">
+          <a>
+            <span class="bg-green-100 text-green-500 w-4 h-4 mr-2 rounded-full inline-flex items-center justify-center">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
+                <path d="M20 6L9 17l-5-5"></path>
+              </svg>
+            </span>{{ h }}
+          </a>
+        </nav>
+      </div>
+	  {% set v = values[loop.index-1] %}
+      <div class="p-4 lg:w-1/4 sm:w-1/2 w-full">
+        
+        <nav class="flex flex-col sm:items-start sm:text-left text-center items-center -mb-1 space-y-2.5">
+          <a>
+            <span class="bg-green-100 text-green-500 w-4 h-4 mr-2 rounded-full inline-flex items-center justify-center">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
+                <path d="M20 6L9 17l-5-5"></path>
+              </svg>
+            </span>{{ v }}
+          </a>
+        </nav>
+      </div>
+	{% set h1 = headings1[loop.index-1] %}
+                
+      <div class="p-4 lg:w-1/4 sm:w-1/2 w-full">
+        
+        <nav class="flex flex-col sm:items-start sm:text-left text-center items-center -mb-1 space-y-2.5">
+          <a>
+            <span class="bg-green-100 text-green-500 w-4 h-4 mr-2 rounded-full inline-flex items-center justify-center">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
+                <path d="M20 6L9 17l-5-5"></path>
+              </svg>
+            </span>{{ h1 }}
+          </a>
+        </nav>
+      </div>
+	  {% set v1 = values1[loop.index-1] %}
+      <div class="p-4 lg:w-1/4 sm:w-1/2 w-full">
+        
+        <nav class="flex flex-col sm:items-start sm:text-left text-center items-center -mb-1 space-y-2.5">
+          <a>
+            <span class="bg-green-100 text-green-500 w-4 h-4 mr-2 rounded-full inline-flex items-center justify-center">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
+                <path d="M20 6L9 17l-5-5"></path>
+              </svg>
+            </span>{{ v1 }}
+          </a>
+        </nav>
+      </div>
+	  {% endfor %}
+    </div>
+  </div>
+</section>
+<section  class="text-gray-600 body-font">
+  <div  class="container px-5 py-24 mx-auto flex flex-wrap" >
+    <div class="flex flex-wrap -m-4">
+	
+      <div class="p-4 lg:w-1/2 md:w-full">
+        <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+          <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
+		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
+  <path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"/>
+</svg>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ name11 }}</h2>
+			{% for q in strn %}
+            <p class="leading-relaxed text-base">{{ q }}</p>
+			{% endfor %}
+          </div>
+        </div>
+      </div>
+	  <div class="p-4 lg:w-1/2 md:w-full">
+        <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+          <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
+		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
+  <path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"/>
+</svg>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ name11 }}</h2>
+			{% for q in strn1 %}
+            <p class="leading-relaxed text-base">{{ q }}</p>
+			{% endfor %}
+          </div>
+        </div>
+      </div>
+	  <div class="p-4 lg:w-1/2 md:w-full">
+        <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+          <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
+		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-down" viewBox="0 0 16 16">
+  <path d="M8.864 15.674c-.956.24-1.843-.484-1.908-1.42-.072-1.05-.23-2.015-.428-2.59-.125-.36-.479-1.012-1.04-1.638-.557-.624-1.282-1.179-2.131-1.41C2.685 8.432 2 7.85 2 7V3c0-.845.682-1.464 1.448-1.546 1.07-.113 1.564-.415 2.068-.723l.048-.029c.272-.166.578-.349.97-.484C6.931.08 7.395 0 8 0h3.5c.937 0 1.599.478 1.934 1.064.164.287.254.607.254.913 0 .152-.023.312-.077.464.201.262.38.577.488.9.11.33.172.762.004 1.15.069.13.12.268.159.403.077.27.113.567.113.856 0 .289-.036.586-.113.856-.035.12-.08.244-.138.363.394.571.418 1.2.234 1.733-.206.592-.682 1.1-1.2 1.272-.847.283-1.803.276-2.516.211a9.877 9.877 0 0 1-.443-.05 9.364 9.364 0 0 1-.062 4.51c-.138.508-.55.848-1.012.964l-.261.065zM11.5 1H8c-.51 0-.863.068-1.14.163-.281.097-.506.229-.776.393l-.04.025c-.555.338-1.198.73-2.49.868-.333.035-.554.29-.554.55V7c0 .255.226.543.62.65 1.095.3 1.977.997 2.614 1.709.635.71 1.064 1.475 1.238 1.977.243.7.407 1.768.482 2.85.025.362.36.595.667.518l.262-.065c.16-.04.258-.144.288-.255a8.34 8.34 0 0 0-.145-4.726.5.5 0 0 1 .595-.643h.003l.014.004.058.013a8.912 8.912 0 0 0 1.036.157c.663.06 1.457.054 2.11-.163.175-.059.45-.301.57-.651.107-.308.087-.67-.266-1.021L12.793 7l.353-.354c.043-.042.105-.14.154-.315.048-.167.075-.37.075-.581 0-.211-.027-.414-.075-.581-.05-.174-.111-.273-.154-.315l-.353-.354.353-.354c.047-.047.109-.176.005-.488a2.224 2.224 0 0 0-.505-.804l-.353-.354.353-.354c.006-.005.041-.05.041-.17a.866.866 0 0 0-.121-.415C12.4 1.272 12.063 1 11.5 1z"/>
+</svg>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ name2 }}</h2>
+			{% for q in weak %}
+            <p class="leading-relaxed text-base">{{ q }}</p>
+			{% endfor %}
+          </div>
+        </div>
+      </div>
+	  <div class="p-4 lg:w-1/2 md:w-full">
+        <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+          <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
+		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-down" viewBox="0 0 16 16">
+  <path d="M8.864 15.674c-.956.24-1.843-.484-1.908-1.42-.072-1.05-.23-2.015-.428-2.59-.125-.36-.479-1.012-1.04-1.638-.557-.624-1.282-1.179-2.131-1.41C2.685 8.432 2 7.85 2 7V3c0-.845.682-1.464 1.448-1.546 1.07-.113 1.564-.415 2.068-.723l.048-.029c.272-.166.578-.349.97-.484C6.931.08 7.395 0 8 0h3.5c.937 0 1.599.478 1.934 1.064.164.287.254.607.254.913 0 .152-.023.312-.077.464.201.262.38.577.488.9.11.33.172.762.004 1.15.069.13.12.268.159.403.077.27.113.567.113.856 0 .289-.036.586-.113.856-.035.12-.08.244-.138.363.394.571.418 1.2.234 1.733-.206.592-.682 1.1-1.2 1.272-.847.283-1.803.276-2.516.211a9.877 9.877 0 0 1-.443-.05 9.364 9.364 0 0 1-.062 4.51c-.138.508-.55.848-1.012.964l-.261.065zM11.5 1H8c-.51 0-.863.068-1.14.163-.281.097-.506.229-.776.393l-.04.025c-.555.338-1.198.73-2.49.868-.333.035-.554.29-.554.55V7c0 .255.226.543.62.65 1.095.3 1.977.997 2.614 1.709.635.71 1.064 1.475 1.238 1.977.243.7.407 1.768.482 2.85.025.362.36.595.667.518l.262-.065c.16-.04.258-.144.288-.255a8.34 8.34 0 0 0-.145-4.726.5.5 0 0 1 .595-.643h.003l.014.004.058.013a8.912 8.912 0 0 0 1.036.157c.663.06 1.457.054 2.11-.163.175-.059.45-.301.57-.651.107-.308.087-.67-.266-1.021L12.793 7l.353-.354c.043-.042.105-.14.154-.315.048-.167.075-.37.075-.581 0-.211-.027-.414-.075-.581-.05-.174-.111-.273-.154-.315l-.353-.354.353-.354c.047-.047.109-.176.005-.488a2.224 2.224 0 0 0-.505-.804l-.353-.354.353-.354c.006-.005.041-.05.041-.17a.866.866 0 0 0-.121-.415C12.4 1.272 12.063 1 11.5 1z"/>
+</svg>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ name2 }}</h2>
+			{% for q in weak1 %}
+            <p class="leading-relaxed text-base">{{ q }}</p>
+			{% endfor %}
+          </div>
+        </div>
+      </div>
+		<div class="p-4 lg:w-1/2 md:w-full">
+        <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+          <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
+		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb" viewBox="0 0 16 16">
+  <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1z"/>
+</svg>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ name3 }}</h2>
+			{% for q in oppr %}
+            <p class="leading-relaxed text-base">{{ q }}</p>
+			{% endfor %}
+          </div>
+        </div>
+      </div>
+	  <div class="p-4 lg:w-1/2 md:w-full">
+        <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+          <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
+		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb" viewBox="0 0 16 16">
+  <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1z"/>
+</svg>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ name3 }}</h2>
+			{% for q in oppr1 %}
+            <p class="leading-relaxed text-base">{{ q }}</p>
+			{% endfor %}
+          </div>
+        </div>
+      </div>
+	  <div class="p-4 lg:w-1/2 md:w-full">
+        <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+          <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
+		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+  <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+  <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+</svg>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ name4 }}</h2>
+			{% for q in thrt %}
+            <p class="leading-relaxed text-base">{{ q }}</p>
+			{% endfor %}
+          </div>
+        </div>
+      </div>
+	  <div class="p-4 lg:w-1/2 md:w-full">
+        <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+          <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
+		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+  <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+  <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+</svg>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ name4 }}</h2>
+			{% for q in thrt1 %}
+            <p class="leading-relaxed text-base">{{ q }}</p>
+			{% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-borderless">
+                    
+                  <tr>
+                    
+                      <td colspan="2">
+                        <img class="projectimg" src = {{urla}} id="mypng" height="900" width="600" style="display:block">
+                      </td>
+                      <td colspan="2">
+                        <img class="projectimg" src = {{urlb}} id="mypng1" height="900" width="600" style="display:block">
+                      </td>
+                  </tr>
+        </table>
+             </div>
+             </div>
+             </div>	
+             
+			 </div>
+			     <div class="footer section-space60">
+        <!-- footer -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                    <div class="footer-widget mb20">
+                        <!-- footer-widget -->
+                        <h3 class="footer-title">Contact Info</h3>
+                        <div class="ft-contact-info">
+                            <!-- ft contact info -->
+                            <div class="ft-icon">
+                                <!-- ft icon -->
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <!-- /.ft icon -->
+                            <div class="ft-content">
+                                <!-- ft content -->
+                                +91 91919 19191
+                            </div>
+                            <!-- /.ft content -->
+                        </div>
+                        <!-- /.ft contact info -->
+                        <div class="ft-contact-info">
+                            <!-- ft contact info -->
+                            <div class="ft-icon">
+                                <!-- ft icon -->
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                            <!-- /.ft icon -->
+                            <div class="ft-content">
+                                <!-- ft content -->
+                                finpro@gmail.com
+                            </div>
+                            <!-- /.ft content -->
+                        </div>
+                        <!-- /.ft contact info -->
+                        <div class="ft-contact-info">
+                            <!-- ft contact info -->
+                            <div class="ft-icon">
+                                <!-- ft icon -->
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            <!-- /.ft icon -->
+                            <div class="ft-content">
+                                <!-- ft content -->
+                                Hyderabad,
+                                <br>Telangana
+                            </div>
+                            <!-- /.ft content -->
+                        </div>
+                        <!-- /.ft contact info -->
+                    </div>
+                    <!-- /.footer-widget -->
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
+                    <div class="footer-widget mb20">
+                        <!-- footer-widget -->
+                        <h3 class="footer-title">Quick Links</h3>
+                        <ul class="bullet listnone no-padding mb0">
+                            <li><i class="fa fa-angle-right"></i> <a href="{{ url_for('ind')}}" class="Home">Home</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="{{ url_for('nnn')}}" >News</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="{{ url_for('predict')}}" >Predict</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="{{ url_for('gainloss')}}" >Top Gainers</a></li>
+                        </ul>
+                        <!-- /.footer-widget -->
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                    <div class="footer-widget mb20">
+                        <!-- footer-widget -->
+                        <h3 class="footer-title">Follow Us On</h3>
+                        <ul class="listnone no-padding mb0">
+                            <li class="footer-link"><a href="#"><i class="fa fa-envelope "></i> Gmail</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.footer-widget -->
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="footer-widget">
+                        <!-- footer-widget -->
+                        <h3 class="footer-title">For More</h3>
+                        <p>Subscribe for personalised assitance.</p>
+                        <form>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="sr-only control-label">Email</label>
+                                <input type="email" class="form-control" id="inputEmail3" placeholder="Enter Email Address">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-outline">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.footer-widget -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.footer -->
+    <div class="tiny-footer">
+        <!-- tiny-footer -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <p>Copyrights © 2021. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script>
+			var inputs = document.getElementById("myInput");
+			function autocomplete(inp, arr) {
+				var currentFocus;
+				inp.addEventListener("input", function(e) {
+					var a, b, i, val = this.value;
+                    closeAllLists();
+					if (!val) { return false;}
+					currentFocus = -1;
+					a = document.createElement("DIV");
+					a.setAttribute("id", this.id + "autocomplete-list");
+					a.setAttribute("class", "autocomplete-items");
+					this.parentNode.appendChild(a);
+					for (i = 0; i < arr.length; i++) {
+						if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+							b = document.createElement("DIV");
+							b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+							b.innerHTML += arr[i].substr(val.length);
+							b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+							b.addEventListener("click", function(e) {
+								inp.value = this.getElementsByTagName("input")[0].value;
+								closeAllLists();
+							});
+							a.appendChild(b);
+						}
+					}
+				});
+				inp.addEventListener("keydown", function(e) {
+					var x = document.getElementById(this.id + "autocomplete-list");
+					if (x) x = x.getElementsByTagName("div");
+					if (e.keyCode == 40) {
+						currentFocus++;
+						addActive(x);
+					} 
+					else if (e.keyCode == 38) {
+						currentFocus--;
+						addActive(x);
+					} 
+					else if (e.keyCode == 13) {
+						e.preventDefault();
+						if (currentFocus > -1) {
+							if (x) x[currentFocus].click();
+						}
+					}
+				});
+				function addActive(x) {
+					if (!x) return false;
+					removeActive(x);
+					if (currentFocus >= x.length) currentFocus = 0;
+					if (currentFocus < 0) currentFocus = (x.length - 1);
+					x[currentFocus].classList.add("autocomplete-active");
+				}
+				function removeActive(x) {
+					for (var i = 0; i < x.length; i++) {
+						x[i].classList.remove("autocomplete-active");
+					}
+				}
+				function closeAllLists(elmnt) {
+					var x = document.getElementsByClassName("autocomplete-items");
+					for (var i = 0; i < x.length; i++) {
+						if (elmnt != x[i] && elmnt != inp) {
+							x[i].parentNode.removeChild(x[i]);
+						}
+					}
+				}
+				document.addEventListener("click", function (e) {
+					closeAllLists(e.target);
+				});
+			}
+  function autocomplete1(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+          b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  /*execute a function when someone clicks in the document:*/
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+}
+			// $( function() {
+            // var availableTags =[ '3M India', 'Aarti Ind', 'AAVAS Financier', 'AB Capital', 'ABB India', 'Abbott India', 'ACC', 'Adani Enterpris', 'Adani Ports', 'Adani Power', 'Adani Trans', 'Aditya Birla F', 'Advanced Enzyme', 'Aegis Logistics', 'AFL', 'AGL', 'AIA Engineering', 'Ajanta Pharma', 'Akzo Nobel', 'Alembic Pharma', 'Alkem Lab', 'Alkyl Amines', 'Allcargo', 'Alok Industries', 'Amara Raja Batt', 'Amber Enterpris', 'Ambuja Cements', 'APL Apollo', 'Apollo Hospital', 'Apollo Tyres', 'Ashok Leyland', 'Ashoka Buildcon', 'Asian Paints', 'Aster DM Health', 'Astral Poly Tec', 'AstraZeneca', 'Atul', 'AU Small Financ', 'Aurobindo Pharm', 'Avanti Feeds', 'Avenue Supermar', 'Axis Bank', 'Bajaj Auto', 'Bajaj Consumer', 'Bajaj Electric', 'Bajaj Finance', 'Bajaj Finserv', 'Bajaj Holdings', 'Balkrishna Ind', 'Balmer Lawrie', 'Balrampur Chini', 'Bandhan Bank', 'Bank of Baroda', 'Bank of India', 'Bank of Mah', 'BASF', 'Bata India', 'Bayer CropScien', 'BEML', 'Berger Paints', 'Bharat Dynamics', 'Bharat Elec', 'Bharat Forge', 'Bharti Airtel', 'Bharti Infratel', 'BHEL', 'Biocon', 'Birla Corp', 'Birlasoft', 'Bliss GVS', 'Blue Dart', 'Blue Star', 'Bombay Burmah', 'Bombay Dyeing', 'Bosch', 'BPCL', 'Brigade Ent', 'Britannia', 'Cadila Health', 'Can Fin Homes', 'Canara Bank', 'Caplin Labs', 'Capri Global', 'Carborundum', 'CARE Ratings', 'Castrol', 'CCL Products', 'Ceat', 'Central Bank', 'Century', 'CenturyPlyboard', 'Cera Sanitary', 'CESC', 'CG Consumer', 'Chalet Hotels', 'Chambal Fert', 'Chennai Petro', 'Cholamandalam', 'Cholamandalam', 'Cipla', 'City Union Bank', 'Coal India', 'Cochin Shipyard', 'COFORGE LTD.', 'Colgate', 'Container Corp', 'Coromandel Int', 'CreditAccess Gr', 'CRISIL', 'Cummins', 'Cyient', 'Dabur India', 'Dalmia Bharat', 'DB Corp', 'DCB Bank', 'DCM Shriram', 'Deepak Fert', 'Deepak Nitrite', 'Delta Corp', 'Dhanuka Agritec', 'Dilip Buildcon', 'Dish TV', 'Dishman Carboge', 'Divis Labs', 'Dixon Technolog', 'DLF', 'Dr Lal PathLab', 'Dr Reddys Labs', 'eClerx Services', 'Edelweiss', 'Eicher Motors', 'EID Parry', 'EIH', 'Emami', 'Endurance Techn', 'EngineersInd', 'EPL', 'Equitas Holding', 'Esab India', 'Escorts', 'Exide Ind', 'FDC', 'Federal Bank', 'Fine Organics', 'Finolex Cables', 'Finolex Ind', 'Firstsource Sol', 'Force Motors', 'Fortis Health', 'Future Consumer', 'Future Retail', 'GAIL', 'Galaxy Surfacta', 'Garden Reach Sh', 'Garware Technic', 'Gateway Distri', 'GE Power India', 'GE Shipping', 'General Insuran', 'Gillette India', 'GlaxoSmithKline', 'Glenmark', 'GMM Pfaudler', 'GMR Infra', 'GNFC', 'Godfrey Phillip', 'Godrej Agrovet', 'Godrej Consumer', 'Godrej Ind', 'Godrej Prop', 'Granules India', 'Graphite India', 'Grasim', 'Greaves Cotton', 'Grindwell Norto', 'GSFC', 'Guj Alkali', 'Guj Heavy Chem', 'Guj Mineral', 'Guj State Petro', 'Gujarat Fluoro', 'Gujarat Gas', 'Gujarat Pipavav', 'Gulf Oil Lubric', 'Hathway Cable', 'Havells India', 'Hawkins Cooker', 'HCL Tech', 'HDFC', 'HDFC AMC', 'HDFC Bank', 'HDFC Life', 'HEG', 'Heidelberg Cem', 'Heritage Foods', 'Hero Motocorp', 'HFCL', 'Himadri Special', 'Himatsingka Sei', 'Hind Copper', 'Hind Zinc', 'Hindalco', 'Hindustan Aeron', 'Honeywell Autom', 'HPCL', 'HUDCO', 'HUL', 'ICICI Bank', 'ICICI Lombard', 'ICICI Prudentia', 'ICICI Securitie', 'IDBI Bank', 'IDFC', 'IDFC First Bank', 'IEX', 'IFB Industries', 'IFCI', 'IGL', 'IIFL Finance', 'India Cements', 'India Tourism D', 'Indiabulls Hsg', 'Indiabulls Real', 'Indiamart Inter', 'Indian Bank', 'Indian Hotels', 'Indoco Remedies', 'Indostar Capita', 'IndusInd Bank', 'Infibeam Avenue', 'Info Edge', 'Infosys', 'INOX Leisure', 'Interglobe Avi', 'IOB', 'IOC', 'Ipca Labs', 'IRB Infra', 'Ircon Internati', 'IRCTC', 'ITC', 'ITI', 'IWML', 'J. K. Cement', 'JagranPrakashan', 'Jai Corp', 'Jamna Auto', 'JB Chemicals', 'Jindal (Hisar)', 'Jindal Saw', 'Jindal Stainles', 'Jindal Steel', 'JK Bank', 'JK Lakshmi Cem', 'JK Paper', 'JK Tyre & Ind', 'JM Financial', 'Johnson Control', 'JSW Energy', 'JSW Steel', 'JTEKT India', 'Jubilant Food', 'Jubilant Life', 'Just Dial', 'Jyothy Labs', 'Kajaria Ceramic', 'Kalpataru Power', 'Kansai Nerolac', 'Karnataka Bank', 'KEC Intl', 'KEI Industries', 'KNR Construct', 'Kotak Mahindra', 'KPIT Tech', 'KPR Mill', 'KRBL', 'KSB Pumps', 'L&T Finance', 'L&T Infotech', 'L&T Technology', 'La Opala RG', 'Lakshmi Machine', 'Larsen', 'Laurus Labs', 'Lemon Tree Hote', 'LIC Housing Fin', 'Linde India', 'Lupin', 'Lux Industries', 'M&M', 'Mah Scooters', 'Mah Seamless', 'Mahanagar Gas', 'Mahindra Holida', 'Mahindra Life', 'Mahindra Logist', 'Manappuram Fin', 'Marico', 'Maruti Suzuki', 'MAS Financial S', 'Max Financial', 'MCX India', 'Meghmani Organi', 'Metropolis', 'Minda Corp', 'Minda Ind', 'Mindtree', 'Mishra Dhatu Ni', 'MMTC Ltd', 'MOIL', 'Motherson Sumi', 'Motilal Oswal', 'MphasiS', 'MRF', 'MRPL', 'Muthoot Finance', 'NALCO', 'Narayana Hruda', 'Natco Pharma', 'Nava Bharat Ven', 'Navin Fluorine', 'Navneet', 'NBCC (India)', 'NCC', 'NESCO', 'Nestle', 'Network 18', 'New India Assur', 'NHPC', 'Nilkamal', 'Nippon', 'NLC India', 'NMDC', 'NOCIL', 'NTPC', 'Oberoi Realty', 'Oil India', 'Omaxe', 'ONGC', 'Oracle Fin Serv', 'Orient Cement', 'Orient Refract', 'P and G', 'Page Industries', 'Parag Milk Food', 'PC Jeweller', 'Persistent', 'Petronet LNG', 'Pfizer', 'Phillips Carbon', 'Phoenix Mills', 'PI Industries', 'Pidilite Ind', 'Piramal Enter', 'PNB', 'PNB Housing Fin', 'PNC Infratech', 'Polycab', 'Power Finance', 'Power Grid Corp', 'Prestige Estate', 'Prism Cement', 'Procter&Gamble', 'PTC India', 'PVR', 'Quess Corp', 'Radico Khaitan', 'Rail Vikas', 'Rain Industries', 'Rajesh Exports', 'Rallis India', 'Ramco Cements', 'Rashtriya Chem', 'Ratnamani Metal', 'Raymond', 'RBL Bank', 'REC', 'Redington', 'Relaxo Footwear', 'Reliance', 'Repco Home', 'RITES', 'S H Kelkar', 'SAIL', 'Sanofi India', 'SBI', 'SBI Life Insura', 'Schaeffler Ind', 'Schneider Infra', 'Sheela Foam', 'Shilpa', 'Shipping Corp', 'Shoppers Stop', 'Shree Cements', 'Shriram City', 'Shriram Trans', 'Siemens', 'SIS', 'SJVN', 'SKF India', 'Sobha', 'Solar Ind', 'Somany Ceramics', 'Sonata', 'South Ind Bk', 'SpiceJet', 'SRF', 'Star Cement', 'Sterlite Techno', 'Strides Pharma', 'Sudarshan Chem', 'SUMITOMO', 'Sun Pharma', 'Sun Pharma Adv', 'Sun TV Network', 'Sundram', 'Sunteck Realty', 'Suprajit Eng', 'Supreme Ind', 'Suzlon Energy', 'Swan Energy', 'Symphony', 'Syngene Intl', 'Tamil Newsprint', 'Tasty Bite', 'Tata Chemicals', 'Tata Coffee', 'Tata Comm', 'TATA Cons. Prod', 'Tata Elxsi', 'Tata Inv Corp', 'Tata Metaliks', 'Tata Motors', 'Tata Power', 'Tata Steel', 'TCNS Clothing C', 'TCS', 'TeamLease Ser.', 'Tech Mahindra', 'Thermax', 'Thyrocare Techn', 'Time Techno', 'Timken', 'Titan Company', 'TML-D', 'Torrent Pharma', 'Torrent Power', 'Trent', 'Trident', 'TTK Prestige', 'TV TodayNetwork', 'TV18 Broadcast', 'TVS Motor', 'TVS Srichakra', 'UCO Bank', 'Uflex', 'Ujjivan Financi', 'UltraTechCement', 'Union Bank', 'United Brewerie', 'UPL', 'V-Guard Ind', 'V-Mart Retail', 'Va Tech Wabag', 'Vaibhav Global', 'Vakrangee', 'Vardhman Text', 'Varroc Engineer', 'Varun Beverages', 'Vedanta', 'Venkys', 'Vinati Organics', 'VIP Industries', 'Vodafone Idea', 'Voltas', 'VRL Logistics', 'VST', 'WABCO India', 'Welspun Corp', 'Welspun India', 'Westlife Dev', 'Whirlpool', 'Wipro', 'Wockhardt', 'Zee Entertain', 'Zensar Tech', 'Zydus Wellness']
+            // $( "#myInput" ).autocomplete({
+            //  source: availableTags
+            // });
+		    // });
+			var stock =[ '3M India', 'Aarti Ind', 'AAVAS Financier', 'AB Capital', 'ABB India', 'Abbott India', 'ACC', 'Adani Enterpris', 'Adani Ports', 'Adani Power', 'Adani Trans', 'Aditya Birla F', 'Advanced Enzyme', 'Aegis Logistics', 'AFL', 'AGL', 'AIA Engineering', 'Ajanta Pharma', 'Akzo Nobel', 'Alembic Pharma', 'Alkem Lab', 'Alkyl Amines', 'Allcargo', 'Alok Industries', 'Amara Raja Batt', 'Amber Enterpris', 'Ambuja Cements', 'APL Apollo', 'Apollo Hospital', 'Apollo Tyres', 'Ashok Leyland', 'Ashoka Buildcon', 'Asian Paints', 'Aster DM Health', 'Astral Poly Tec', 'AstraZeneca', 'Atul', 'AU Small Financ', 'Aurobindo Pharm', 'Avanti Feeds', 'Avenue Supermar', 'Axis Bank', 'Bajaj Auto', 'Bajaj Consumer', 'Bajaj Electric', 'Bajaj Finance', 'Bajaj Finserv', 'Bajaj Holdings', 'Balkrishna Ind', 'Balmer Lawrie', 'Balrampur Chini', 'Bandhan Bank', 'Bank of Baroda', 'Bank of India', 'Bank of Mah', 'BASF', 'Bata India', 'Bayer CropScien', 'BEML', 'Berger Paints', 'Bharat Dynamics', 'Bharat Elec', 'Bharat Forge', 'Bharti Airtel', 'Bharti Infratel', 'BHEL', 'Biocon', 'Birla Corp', 'Birlasoft', 'Bliss GVS', 'Blue Dart', 'Blue Star', 'Bombay Burmah', 'Bombay Dyeing', 'Bosch', 'BPCL', 'Brigade Ent', 'Britannia', 'Cadila Health', 'Can Fin Homes', 'Canara Bank', 'Caplin Labs', 'Capri Global', 'Carborundum', 'CARE Ratings', 'Castrol', 'CCL Products', 'Ceat', 'Central Bank', 'Century', 'CenturyPlyboard', 'Cera Sanitary', 'CESC', 'CG Consumer', 'Chalet Hotels', 'Chambal Fert', 'Chennai Petro', 'Cholamandalam', 'Cholamandalam', 'Cipla', 'City Union Bank', 'Coal India', 'Cochin Shipyard', 'COFORGE LTD.', 'Colgate', 'Container Corp', 'Coromandel Int', 'CreditAccess Gr', 'CRISIL', 'Cummins', 'Cyient', 'Dabur India', 'Dalmia Bharat', 'DB Corp', 'DCB Bank', 'DCM Shriram', 'Deepak Fert', 'Deepak Nitrite', 'Delta Corp', 'Dhanuka Agritec', 'Dilip Buildcon', 'Dish TV', 'Dishman Carboge', 'Divis Labs', 'Dixon Technolog', 'DLF', 'Dr Lal PathLab', 'Dr Reddys Labs', 'eClerx Services', 'Edelweiss', 'Eicher Motors', 'EID Parry', 'EIH', 'Emami', 'Endurance Techn', 'EngineersInd', 'EPL', 'Equitas Holding', 'Esab India', 'Escorts', 'Exide Ind', 'FDC', 'Federal Bank', 'Fine Organics', 'Finolex Cables', 'Finolex Ind', 'Firstsource Sol', 'Force Motors', 'Fortis Health', 'Future Consumer', 'Future Retail', 'GAIL', 'Galaxy Surfacta', 'Garden Reach Sh', 'Garware Technic', 'Gateway Distri', 'GE Power India', 'GE Shipping', 'General Insuran', 'Gillette India', 'GlaxoSmithKline', 'Glenmark', 'GMM Pfaudler', 'GMR Infra', 'GNFC', 'Godfrey Phillip', 'Godrej Agrovet', 'Godrej Consumer', 'Godrej Ind', 'Godrej Prop', 'Granules India', 'Graphite India', 'Grasim', 'Greaves Cotton', 'Grindwell Norto', 'GSFC', 'Guj Alkali', 'Guj Heavy Chem', 'Guj Mineral', 'Guj State Petro', 'Gujarat Fluoro', 'Gujarat Gas', 'Gujarat Pipavav', 'Gulf Oil Lubric', 'Hathway Cable', 'Havells India', 'Hawkins Cooker', 'HCL Tech', 'HDFC', 'HDFC AMC', 'HDFC Bank', 'HDFC Life', 'HEG', 'Heidelberg Cem', 'Heritage Foods', 'Hero Motocorp', 'HFCL', 'Himadri Special', 'Himatsingka Sei', 'Hind Copper', 'Hind Zinc', 'Hindalco', 'Hindustan Aeron', 'Honeywell Autom', 'HPCL', 'HUDCO', 'HUL', 'ICICI Bank', 'ICICI Lombard', 'ICICI Prudentia', 'ICICI Securitie', 'IDBI Bank', 'IDFC', 'IDFC First Bank', 'IEX', 'IFB Industries', 'IFCI', 'IGL', 'IIFL Finance', 'India Cements', 'India Tourism D', 'Indiabulls Hsg', 'Indiabulls Real', 'Indiamart Inter', 'Indian Bank', 'Indian Hotels', 'Indoco Remedies', 'Indostar Capita', 'IndusInd Bank', 'Infibeam Avenue', 'Info Edge', 'Infosys', 'INOX Leisure', 'Interglobe Avi', 'IOB', 'IOC', 'Ipca Labs', 'IRB Infra', 'Ircon Internati', 'IRCTC', 'ITC', 'ITI', 'IWML', 'J. K. Cement', 'JagranPrakashan', 'Jai Corp', 'Jamna Auto', 'JB Chemicals', 'Jindal (Hisar)', 'Jindal Saw', 'Jindal Stainles', 'Jindal Steel', 'JK Bank', 'JK Lakshmi Cem', 'JK Paper', 'JK Tyre & Ind', 'JM Financial', 'Johnson Control', 'JSW Energy', 'JSW Steel', 'JTEKT India', 'Jubilant Food', 'Jubilant Life', 'Just Dial', 'Jyothy Labs', 'Kajaria Ceramic', 'Kalpataru Power', 'Kansai Nerolac', 'Karnataka Bank', 'KEC Intl', 'KEI Industries', 'KNR Construct', 'Kotak Mahindra', 'KPIT Tech', 'KPR Mill', 'KRBL', 'KSB Pumps', 'L&T Finance', 'L&T Infotech', 'L&T Technology', 'La Opala RG', 'Lakshmi Machine', 'Larsen', 'Laurus Labs', 'Lemon Tree Hote', 'LIC Housing Fin', 'Linde India', 'Lupin', 'Lux Industries', 'M&M', 'Mah Scooters', 'Mah Seamless', 'Mahanagar Gas', 'Mahindra Holida', 'Mahindra Life', 'Mahindra Logist', 'Manappuram Fin', 'Marico', 'Maruti Suzuki', 'MAS Financial S', 'Max Financial', 'MCX India', 'Meghmani Organi', 'Metropolis', 'Minda Corp', 'Minda Ind', 'Mindtree', 'Mishra Dhatu Ni', 'MMTC Ltd', 'MOIL', 'Motherson Sumi', 'Motilal Oswal', 'MphasiS', 'MRF', 'MRPL', 'Muthoot Finance', 'NALCO', 'Narayana Hruda', 'Natco Pharma', 'Nava Bharat Ven', 'Navin Fluorine', 'Navneet', 'NBCC (India)', 'NCC', 'NESCO', 'Nestle', 'Network 18', 'New India Assur', 'NHPC', 'Nilkamal', 'Nippon', 'NLC India', 'NMDC', 'NOCIL', 'NTPC', 'Oberoi Realty', 'Oil India', 'Omaxe', 'ONGC', 'Oracle Fin Serv', 'Orient Cement', 'Orient Refract', 'P and G', 'Page Industries', 'Parag Milk Food', 'PC Jeweller', 'Persistent', 'Petronet LNG', 'Pfizer', 'Phillips Carbon', 'Phoenix Mills', 'PI Industries', 'Pidilite Ind', 'Piramal Enter', 'PNB', 'PNB Housing Fin', 'PNC Infratech', 'Polycab', 'Power Finance', 'Power Grid Corp', 'Prestige Estate', 'Prism Cement', 'Procter&Gamble', 'PTC India', 'PVR', 'Quess Corp', 'Radico Khaitan', 'Rail Vikas', 'Rain Industries', 'Rajesh Exports', 'Rallis India', 'Ramco Cements', 'Rashtriya Chem', 'Ratnamani Metal', 'Raymond', 'RBL Bank', 'REC', 'Redington', 'Relaxo Footwear', 'Reliance', 'Repco Home', 'RITES', 'S H Kelkar', 'SAIL', 'Sanofi India', 'SBI', 'SBI Life Insura', 'Schaeffler Ind', 'Schneider Infra', 'Sheela Foam', 'Shilpa', 'Shipping Corp', 'Shoppers Stop', 'Shree Cements', 'Shriram City', 'Shriram Trans', 'Siemens', 'SIS', 'SJVN', 'SKF India', 'Sobha', 'Solar Ind', 'Somany Ceramics', 'Sonata', 'South Ind Bk', 'SpiceJet', 'SRF', 'Star Cement', 'Sterlite Techno', 'Strides Pharma', 'Sudarshan Chem', 'SUMITOMO', 'Sun Pharma', 'Sun Pharma Adv', 'Sun TV Network', 'Sundram', 'Sunteck Realty', 'Suprajit Eng', 'Supreme Ind', 'Suzlon Energy', 'Swan Energy', 'Symphony', 'Syngene Intl', 'Tamil Newsprint', 'Tasty Bite', 'Tata Chemicals', 'Tata Coffee', 'Tata Comm', 'TATA Cons. Prod', 'Tata Elxsi', 'Tata Inv Corp', 'Tata Metaliks', 'Tata Motors', 'Tata Power', 'Tata Steel', 'TCNS Clothing C', 'TCS', 'TeamLease Ser.', 'Tech Mahindra', 'Thermax', 'Thyrocare Techn', 'Time Techno', 'Timken', 'Titan Company', 'TML-D', 'Torrent Pharma', 'Torrent Power', 'Trent', 'Trident', 'TTK Prestige', 'TV TodayNetwork', 'TV18 Broadcast', 'TVS Motor', 'TVS Srichakra', 'UCO Bank', 'Uflex', 'Ujjivan Financi', 'UltraTechCement', 'Union Bank', 'United Brewerie', 'UPL', 'V-Guard Ind', 'V-Mart Retail', 'Va Tech Wabag', 'Vaibhav Global', 'Vakrangee', 'Vardhman Text', 'Varroc Engineer', 'Varun Beverages', 'Vedanta', 'Venkys', 'Vinati Organics', 'VIP Industries', 'Vodafone Idea', 'Voltas', 'VRL Logistics', 'VST', 'WABCO India', 'Welspun Corp', 'Welspun India', 'Westlife Dev', 'Whirlpool', 'Wipro', 'Wockhardt', 'Zee Entertain', 'Zensar Tech', 'Zydus Wellness']
+            
+			var NSE=['3MINDIA', 'AARTIIND', 'AAVAS', 'ABCAPITAL', 'ABB', 'ABBOTINDIA', 'ACC', 'ADANIENT', 'ADANIPORTS', 'ADANIPOWER', 'ADANITRANS', 'ABFRL', 'ADVENZYMES', 'AEGISCHEM', 'ARVINDFASN', 'ADANIGAS', 'AIAENG', 'AJANTPHARM', 'AKZOINDIA', 'APLLTD', 'ALKEM', 'ALKYLAMINE', 'ALLCARGO', 'ALOKINDS', 'AMARAJABAT', 'AMBER', 'AMBUJACEM', 'APLAPOLLO', 'APOLLOHOSP', 'APOLLOTYRE', 'ASHOKLEY', 'ASHOKA', 'ASIANPAINT', 'ASTERDM', 'ASTRAL', 'ASTRAZEN', 'ATUL', 'AUBANK', 'AUROPHARMA', 'AVANTIFEED', 'DMART', 'AXISBANK', 'BAJAJ-AUTO', 'BAJAJCON', 'BAJAJELEC', 'BAJFINANCE', 'BAJAJFINSV', 'BAJAJHLDNG', 'BALKRISIND', 'BALMLAWRIE', 'BALRAMCHIN', 'BANDHANBNK', 'BANKBARODA', 'BANKINDIA', 'MAHABANK', 'BASF', 'BATAINDIA', 'BAYERCROP', 'BEML', 'BERGEPAINT', 'BDL', 'BEL', 'BHARATFORG', 'BHARTIARTL', 'INFRATEL', 'BHEL', 'BIOCON', 'BIRLACORPN', 'BSOFT', 'BLISSGVS', 'BLUEDART', 'BLUESTARCO', 'BBTC', 'BOMDYEING', 'BOSCHLTD', 'BPCL', 'BRIGADE', 'BRITANNIA', 'CADILAHC', 'CANFINHOME', 'CANBK', 'CAPLIPOINT', 'CGCL', 'CARBORUNIV', 'CARERATING', 'CASTROLIND', 'CCL', 'CEATLTD', 'CENTRALBK', 'CENTURYTEX', 'CENTURYPLY', 'CERA', 'CESC', 'CROMPTON', 'CHALET', 'CHAMBLFERT', 'CHENNPETRO', 'CHOLAFIN', 'CHOLAHLDNG', 'CIPLA', 'CUB', 'COALINDIA', 'COCHINSHIP', 'COFORGE', 'COLPAL', 'CONCOR', 'COROMANDEL', 'CREDITACC', 'CRISIL', 'CUMMINSIND', 'CYIENT', 'DABUR', 'DALBHARAT', 'DBCORP', 'DCBBANK', 'DCMSHRIRAM', 'DEEPAKFERT', 'DEEPAKNTR', 'DELTACORP', 'DHANUKA', 'DBL', 'DISHTV', 'DCAL', 'DIVISLAB', 'DIXON', 'DLF', 'LALPATHLAB', 'DRREDDY', 'ECLERX', 'EDELWEISS', 'EICHERMOT', 'EIDPARRY', 'EIHOTEL', 'EMAMILTD', 'ENDURANCE', 'ENGINERSIN', 'EPL', 'EQUITAS', 'ESABINDIA', 'ESCORTS', 'EXIDEIND', 'FDC', 'FEDERALBNK', 'FINEORG', 'FINCABLES', 'FINPIPE', 'FSL', 'FORCEMOT', 'FORTIS', 'FCONSUMER', 'FRETAIL', 'GAIL', 'GALAXYSURF', 'GRSE', 'GARFIBRES', 'GDL', 'GEPIL', 'GESHIP', 'GICRE', 'GILLETTE', 'GLAXO', 'GLENMARK', 'GMMPFAUDLR', 'GMRINFRA', 'GNFC', 'GODFRYPHLP', 'GODREJAGRO', 'GODREJCP', 'GODREJIND', 'GODREJPROP', 'GRANULES', 'GRAPHITE', 'GRASIM', 'GREAVESCOT', 'GRINDWELL', 'GSFC', 'GUJALKALI', 'GHCL', 'GMDCLTD', 'GSPL', 'FLUOROCHEM', 'GUJGASLTD', 'GPPL', 'GULFOILLUB', 'HATHWAY', 'HAVELLS', 'HAWKINCOOK', 'HCLTECH', 'HDFC', 'HDFCAMC', 'HDFCBANK', 'HDFCLIFE', 'HEG', 'HEIDELBERG', 'HERITGFOOD', 'HEROMOTOCO', 'HFCL', 'HSCL', 'HIMATSEIDE', 'HINDCOPPER', 'HINDZINC', 'HINDALCO', 'HAL', 'HONAUT', 'HINDPETRO', 'HUDCO', 'HINDUNILVR', 'ICICIBANK', 'ICICIGI', 'ICICIPRULI', 'ISEC', 'IDBI', 'IDFC', 'IDFCFIRSTB', 'IEX', 'IFBIND', 'IFCI', 'IGL', 'IIFL', 'INDIACEM', 'ITDC', 'IBULHSGFIN', 'IBREALEST', 'INDIAMART', 'INDIANB', 'INDHOTEL', 'INDOCO', 'INDOSTAR', 'INDUSINDBK', 'INFIBEAM', 'NAUKRI', 'INFY', 'INOXLEISUR', 'INDIGO', 'IOB', 'IOC', 'IPCALAB', 'IRB', 'IRCON', 'IRCTC', 'ITC', 'ITI', 'IIFLWAM', 'JKCEMENT', 'JAGRAN', 'JAICORPLTD', 'JAMNAAUTO', 'JBCHEPHARM', 'JSLHISAR', 'JINDALSAW', 'JSL', 'JINDALSTEL', 'J&KBANK', 'JKLAKSHMI', 'JKPAPER', 'JKTYRE', 'JMFINANCIL', 'JCHAC', 'JSWENERGY', 'JSWSTEEL', 'JTEKTINDIA', 'JUBLFOOD', 'JUBILANT', 'JUSTDIAL', 'JYOTHYLAB', 'KAJARIACER', 'KALPATPOWR', 'KANSAINER', 'KTKBANK', 'KEC', 'KEI', 'KNRCON', 'KOTAKBANK', 'KPITTECH', 'KPRMILL', 'KRBL', 'KSB', 'L&TFH', 'LTI', 'LTTS', 'LAOPALA', 'LAXMIMACH', 'LT', 'LAURUSLABS', 'LEMONTREE', 'LICHSGFIN', 'LINDEINDIA', 'LUPIN', 'LUXIND', 'M&M', 'MAHSCOOTER', 'MAHSEAMLES', 'MGL', 'MHRIL', 'MAHLIFE', 'MAHLOG', 'MANAPPURAM', 'MARICO', 'MARUTI', 'MASFIN', 'MFSL', 'MCX', 'MEGH', 'METROPOLIS', 'MINDACORP', 'MINDAIND', 'MINDTREE', 'MIDHANI', 'MMTC', 'MOIL', 'MOTHERSUMI', 'MOTILALOFS', 'MPHASIS', 'MRF', 'MRPL', 'MUTHOOTFIN', 'NATIONALUM', 'NH', 'NATCOPHARM', 'NBVENTURES', 'NAVINFLUOR', 'NAVNETEDUL', 'NBCC', 'NCC', 'NESCO', 'NESTLEIND', 'NETWORK18', 'NIACL', 'NHPC', 'NILKAMAL', 'NAM-INDIA', 'NLCINDIA', 'NMDC', 'NOCIL', 'NTPC', 'OBEROIRLTY', 'OIL', 'OMAXE', 'ONGC', 'OFSS', 'ORIENTCEM', 'ORIENTREF', 'PGHH', 'PAGEIND', 'PARAGMILK', 'PCJEWELLER', 'PERSISTENT', 'PETRONET', 'PFIZER', 'PHILIPCARB', 'PHOENIXLTD', 'PIIND', 'PIDILITIND', 'PEL', 'PNB', 'PNBHOUSING', 'PNCINFRA', 'POLYCAB', 'PFC', 'POWERGRID', 'PRESTIGE', 'PRSMJOHNSN', 'PGHL', 'PTC', 'PVR', 'QUESS', 'RADICO', 'RVNL', 'RAIN', 'RAJESHEXPO', 'RALLIS', 'RAMCOCEM', 'RCF', 'RATNAMANI', 'RAYMOND', 'RBLBANK', 'RECLTD', 'REDINGTON', 'RELAXO', 'RELIANCE', 'REPCOHOME', 'RITES', 'SHK', 'SAIL', 'SANOFI', 'SBIN', 'SBILIFE', 'SCHAEFFLER', 'SCHNEIDER', 'SFL', 'SHILPAMED', 'SCI', 'SHOPERSTOP', 'SHREECEM', 'SHRIRAMCIT', 'SRTRANSFIN', 'SIEMENS', 'SIS', 'SJVN', 'SKFINDIA', 'SOBHA', 'SOLARINDS', 'SOMANYCERA', 'SONATSOFTW', 'SOUTHBANK', 'SPICEJET', 'SRF', 'STARCEMENT', 'STLTECH', 'STAR', 'SUDARSCHEM', 'SUMICHEM', 'SUNPHARMA', 'SPARC', 'SUNTV', 'SUNDRMFAST', 'SUNTECK', 'SUPRAJIT', 'SUPREMEIND', 'SUZLON', 'SWANENERGY', 'SYMPHONY', 'SYNGENE', 'TNPL', 'TASTYBITE', 'TATACHEM', 'TATACOFFEE', 'TATACOMM', 'TATACONSUM', 'TATAELXSI', 'TATAINVEST', 'TATAMETALI', 'TATAMOTORS', 'TATAPOWER', 'TATASTEEL', 'TCNSBRANDS', 'TCS', 'TEAMLEASE', 'TECHM', 'THERMAX', 'THYROCARE', 'TIMETECHNO', 'TIMKEN', 'TITAN', 'TATAMTRDVR', 'TORNTPHARM', 'TORNTPOWER', 'TRENT', 'TRIDENT', 'TTKPRESTIG', 'TVTODAY', 'TV18BRDCST', 'TVSMOTOR', 'TVSSRICHAK', 'UCOBANK', 'UFLEX', 'UJJIVAN', 'ULTRACEMCO', 'UNIONBANK', 'UBL', 'UPL', 'VGUARD', 'VMART', 'WABAG', 'VAIBHAVGBL', 'VAKRANGEE', 'VTL', 'VARROC', 'VBL', 'VEDL', 'VENKEYS', 'VINATIORGA', 'VIPIND', 'IDEA', 'VOLTAS', 'VRLLOG', 'VSTIND', 'WABCOINDIA', 'WELCORP', 'WELSPUNIND', 'WESTLIFE', 'WHIRLPOOL', 'WIPRO', 'WOCKPHARMA', 'ZEEL', 'ZENSARTECH', 'ZYDUSWELL']
+			autocomplete(document.getElementById("myInput"), stock);
+			autocomplete1(document.getElementById("myInput1"), stock);
+			function dispImg(){
+				document.getElementById("mypng").style.display="block";
+				document.getElementById("mypng1").style.display="block";
+			}
+
+
+
+      mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+		</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>  
+	</body>
+</html>
