@@ -9,7 +9,6 @@ import numpy
 import datetime
 from pandas_datareader import data as wb
 import os
-import request
 app = Flask(__name__, template_folder='templates')
 
 nseid = ''
