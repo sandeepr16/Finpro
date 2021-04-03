@@ -10,7 +10,9 @@ import datetime
 from pandas_datareader import data as wb
 import os
 app = Flask(__name__, template_folder='templates')
-
+nse = Nse()
+tg = nse.get_top_gainers()
+tl = nse.get_top_losers()
 nseid = ''
 
 @app.route('/', methods=['GET'])
@@ -105,9 +107,7 @@ def beta():
 
 @app.route('/gainloss', methods=['GET'])
 def gainloss():
-    nse = Nse()
-    tg = nse.get_top_gainers()
-    tl = nse.get_top_losers()
+
     alltg = []
     dfg = pd.DataFrame(columns=['Stock', 'Price', 'Gain'])
     dfl = pd.DataFrame(columns=['Stock', 'Price', 'Loss'])
