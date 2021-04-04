@@ -9,6 +9,8 @@ import numpy
 import datetime
 from pandas_datareader import data as wb
 import os
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 app = Flask(__name__, template_folder='templates')
 nse = Nse()
 tg = nse.get_top_gainers()
@@ -107,30 +109,35 @@ def beta():
 
 @app.route('/gainloss', methods=['GET'])
 def gainloss():
-
     alltg = []
     dfg = pd.DataFrame(columns=['Stock', 'Price', 'Gain'])
     dfl = pd.DataFrame(columns=['Stock', 'Price', 'Loss'])
-    for i in range(4):
-        alltg.append(tg[i]['symbol'])
-        s = "Rs. "+str(tg[i]['openPrice'])
-        alltg.append(s)
-        l = str(tg[i]['netPrice'])+" %"
-        alltg.append(l)
+
+    options = Options()
+    options.add_argument('--headless')
+    options.add_argument('--disable-gpu')
+    path = "C:\Program Files (x86)\chromedriver.exe"
+    driver = webdriver.Chrome(path, options=options)
+    query = "https://www.moneycontrol.com/stocks/marketstats/nsegainer/index.php"
+    driver.get(query)
+
+    for i in range(1,5):
+        alltg.append(driver.find_element_by_xpath("//*[@id='mc_content']/section/section/div[1]/div[2]/div/div/div[2]/table/tbody/tr["+str(i)+"]/td[1]").text)
+        alltg.append("Rs. "+driver.find_element_by_xpath("//*[@id='mc_content']/section/section/div[1]/div[2]/div/div/div[2]/table/tbody/tr["+str(i)+"]/td[3]").text)
+        alltg.append(driver.find_element_by_xpath("//*[@id='mc_content']/section/section/div[1]/div[2]/div/div/div[2]/table/tbody/tr["+str(i)+"]/td[7]").text+" %")
         dfg.loc[len(dfg)] = alltg
         alltg = []
-    for i in range(4):
-        alltg.append(tl[i]['symbol'])
-        s = "Rs. "+str(tl[i]['openPrice'])
-        alltg.append(s)
-        l = str(tl[i]['netPrice'])+" %"
-        alltg.append(l)
+
+    query = "https://www.moneycontrol.com/stocks/marketstats/nseloser/index.php"
+    driver.get(query)
+
+    for i in range(1,5):
+        alltg.append(driver.find_element_by_xpath("//*[@id='mc_content']/section/section/div[1]/div[2]/div/div/div[2]/table/tbody/tr["+str(i)+"]/td[1]").text)
+        alltg.append("Rs. "+driver.find_element_by_xpath("//*[@id='mc_content']/section/section/div[1]/div[2]/div/div/div[2]/table/tbody/tr["+str(i)+"]/td[3]").text)
+        alltg.append(driver.find_element_by_xpath("//*[@id='mc_content']/section/section/div[1]/div[2]/div/div/div[2]/table/tbody/tr["+str(i)+"]/td[7]").text+" %")
         dfl.loc[len(dfl)] = alltg
         alltg = []
-    print(dfg)
-    print(dfl)
     return render_template('gainloss.html', sg=dfg['Stock'], pg=dfg['Price'], gg=dfg['Gain'], sl=dfl['Stock'], pl=dfl['Price'], ll=dfl['Loss'])
-
 @app.route('/swot', methods=['GET', 'POST'])
 def swot():
     for filename in os.listdir('static/images/'):
