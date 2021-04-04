@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from GoogleNews import GoogleNews
-from nsetools import Nse
 import time
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,9 +11,6 @@ import os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 app = Flask(__name__, template_folder='templates')
-nse = Nse()
-tg = nse.get_top_gainers()
-tl = nse.get_top_losers()
 nseid = ''
 
 @app.route('/', methods=['GET'])
