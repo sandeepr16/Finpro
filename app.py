@@ -12,9 +12,7 @@ from pandas_datareader import data as wb
 import os
 import requests
 app = Flask(__name__, template_folder='templates')
-nse = Nse()
-tg = nse.get_top_gainers()
-tl = nse.get_top_losers()
+
 nseid = ''
 
 
