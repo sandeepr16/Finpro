@@ -165,7 +165,7 @@ def gainloss():
     dfg['Gain'] = gpercentage
     dfl['Stock'] = ltitles
     dfl['Price'] = lprice
-    dfl['Gain'] = lpercentage
+    dfl['Loss'] = lpercentage
     return render_template('gainloss.html', sg=dfg['Stock'], pg=dfg['Price'], gg=dfg['Gain'], sl=dfl['Stock'], pl=dfl['Price'], ll=dfl['Loss'])
 
 
